@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plagiarism Detector</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin-top: 50px;
+            box-shadow: 8px 14px 31px -7px rgba(0,0,0,1);
+                -webkit-box-shadow: 8px 14px 31px -7px rgba(0,0,0,1);
+                -moz-box-shadow: 8px 14px 31px -7px rgba(0,0,0,1);
+            border-radius: 10px;
+
+            padding-top: 1cm;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        
+        .no-plagiarism {
+            text-align: center;
+            margin-top: 30px;
+            color: rgb(9, 255, 0)
+        }
+
+        .plagiarize{
+            text-align: center;
+            margin-top: 30px;
+            color: red
+        }
+        
+        .img-logo{
+            width: 2cm;
+        }
+        .img{
+            width: 10cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h2><img  class="img-logo" src="{{ url_for('static', filename='ccsict.png') }}" alt="" srcset="">  
+                College of Computing Studies, Information and Communication Technology<br></h2> 
+            
+        </div>
+        <form method="POST" action="/detect-plagiarism">
+            <div class="form-group">
+                <label for="text">Plagiarism Checker</label>
+                <textarea class="form-control" name="text" rows="8" placeholder="Paste or type your text here..." required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Check Plagiarism</button>
+            </div>
+        </form>
+    </div>
+
+    
+    {% if report %}
+    <div class="container">
+        <h1>Plagiarism Report</h1>
+        {% if report == "No plagiarism detected." %}
+            <div class="no-plagiarism">
+                <img  class="img" src="{{ url_for('static', filename='not_pla.png') }}" alt="" srcset="">
+                
+               
+            </div>
+        {% else %}
+            <img  class="img" src="{{ url_for('static', filename='plagarize.png') }}" alt="" srcset="">
+            <pre class="plagiarize">{{ report }}</pre>
+            
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="container">
+        <h3>Paste text to see result</h3>
+    </div>
+    {% endif %}
+
+
+    <!-- Add Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
